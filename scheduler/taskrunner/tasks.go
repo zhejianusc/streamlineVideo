@@ -46,15 +46,15 @@ forloop:
 		select {
 		case vid :=<- dc:
 			go func(id interface{}) {
-				if err := deleteVideo(id.(string)); err != nil {
-					errMap.Store(id, err)
-					return
-				}
-				if err := dbops.DelVideoDeletionRecord(id.(string)); err != nil {
-					errMap.Store(id, err)
-					return
-				}
-			}(vid)
+			if err := deleteVideo(id.(string)); err != nil {
+				errMap.Store(id, err)
+				return
+			}
+			if err := dbops.DelVideoDeletionRecord(id.(string)); err != nil {
+				errMap.Store(id, err)
+				return
+			}
+		}(vid)
 		default:
 			break forloop
 		}

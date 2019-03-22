@@ -5,6 +5,9 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// api -> videoid - mysql
+// dispatcher -> mysql-videoid -> datachannel
+// executor -> datachannel-videoid -> delete videos
 func ReadVideoDeletionRecord(count int) ([]string, error) {
 	stmtOut, err := dbConn.Prepare("SELECT video_id FROM video_del_rec LIMIT ?")
 

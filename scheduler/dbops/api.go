@@ -5,6 +5,9 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// api -> videoid - mysql
+// dispatcher -> mysql-videoid -> datachannel
+// executor -> datachannel-videoid -> delete videos
 func AddVideoDeletionRecord(vid string) error {
 	stmtIns, err := dbConn.Prepare("INSERT INTO video_del_rec (video_id) VALUES(?)")
 	if err != nil {
